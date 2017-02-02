@@ -11,13 +11,14 @@ class SessionsController < ApplicationController
     current_auth = env["omniauth.auth"]
     logger.debug "current_auth.email: #{current_auth.info.email}"
 
+=begin
     user = User.find_by_email("current_auth.info.email")
     if !user.exists?
       logger.debug "New user being added to database: #{current_auth.info.email}"
       msg = "#{current_auth.info.name} (#{current_auth.info.email}) started the marketplace signup flow"
       send_slack_msg("@martin", msg)
     end
-
+=end
     user = User.from_omniauth(current_auth)
     logger.debug "user.email: #{user.email}"
 
