@@ -6,8 +6,10 @@ class SessionsController < ApplicationController
   end
 
   def create
+    logger.debug "Session#create called..."
     user = User.from_omniauth(env["omniauth.auth"])
 
+    logger.debug "user.email: #{user.email}"
     if user.valid?
       msg = user.email + "," + user.username
       send_slack_msg("@martin", msg)
@@ -18,8 +20,8 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    #reset_session
-    session[:user_id] = nil
+    logger.debug "Destroying session..."
+    reset_session
     redirect_to request.referer
   end
 
@@ -34,6 +36,6 @@ class SessionsController < ApplicationController
       http.request(req)
     end
 
-    puts res.body
+    logger.debug res.body
   end
 end
