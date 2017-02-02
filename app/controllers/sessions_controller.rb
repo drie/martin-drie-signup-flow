@@ -29,7 +29,8 @@ class SessionsController < ApplicationController
 
   def destroy
     #reset_session
-    session[:user_id] = nil
+    #session[:user_id] = nil
+    session.delete(:user_id)
     redirect_to request.referer
   end
 end
