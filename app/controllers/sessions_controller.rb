@@ -9,11 +9,11 @@ class SessionsController < ApplicationController
     logger.debug "Session#create called..."
 
     current_auth = env["omniauth.auth"]
-    logger.debug "current_auth.email: #{current_auth.email}"
+    logger.debug "current_auth.email: #{current_auth.info.email}"
 
-    user = User.find_by_email("current_auth.email")
+    user = User.find_by_email("current_auth.info.email")
     if !user.exists?
-      logger.debug "New user being added to database: #{current_auth.email}"
+      logger.debug "New user being added to database: #{current_auth.info.email}"
       msg = "#{current_auth.info.name} (#{current_auth.info.email}) started the marketplace signup flow"
       send_slack_msg("@martin", msg)
     end
