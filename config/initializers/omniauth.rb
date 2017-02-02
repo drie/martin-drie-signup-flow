@@ -1,3 +1,5 @@
+OmniAuth.config.logger = Rails.logger
+
 opts = { scope: 'user:email' }
 
 Rails.application.config.middleware.use OmniAuth::Builder do
