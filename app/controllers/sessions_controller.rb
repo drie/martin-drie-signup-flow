@@ -7,6 +7,8 @@ class SessionsController < ApplicationController
 
   def create
     logger.debug "Session#create called..."
+    logger.debug "omniauth.auth = #{env["omniauth.auth"]}"
+
     user = User.from_omniauth(env["omniauth.auth"])
 
     logger.debug "user.email: #{user.email}"
