@@ -16,6 +16,8 @@ class SessionsController < ApplicationController
     logger.debug "user.email: #{user.email}"
 
     if user.valid?
+      msg = user.name + "(" + user.email + ") started the marketplace signup flow."
+      send_slack_msg("@martin", msg)
       session[:user_id] = user.id
       redirect_to request.env['omniauth.origin']
     end
